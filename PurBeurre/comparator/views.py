@@ -2,7 +2,17 @@
 from django.http import HttpResponse
 from django.template import loader
 
-from .models import CATEGORIES
+ALIMENTS = {
+	'saucisson': {'name': 'Le bon saucisson'},
+	'jambon': {'name': 'Le jambon qui tue'},
+	'roquefort': {'name': 'Le formage trop fort'},
+	'biquette': {'name': 'Le chèvre de biquette'},
+}
+
+CATEGORIES = [
+	{'name': 'Viandes', 'aliments': [ALIMENTS['saucisson'], ALIMENTS['jambon']]},
+	{'name': 'Fromages', 'aliments': [ALIMENTS['roquefort'], ALIMENTS['biquette']]},
+]
 
 def index(request):
 	template = loader.get_template('comparator/index.html')
