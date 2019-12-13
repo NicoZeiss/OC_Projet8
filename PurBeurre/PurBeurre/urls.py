@@ -19,7 +19,7 @@ from django.urls import path, include
 from comparator import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('site_admin/', admin.site.urls),
     path('', views.index),
     path('comparator/', include('comparator.urls')),
 ]
