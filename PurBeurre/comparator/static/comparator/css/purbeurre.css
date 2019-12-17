@@ -19,6 +19,38 @@
 	width: auto;
 }
 
+.text-white-80 {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.font-orange {
+	color: #C45525;
+}
+
+.footer-text {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+header.connect-img {
+  padding-top: 10rem;
+  padding-bottom: calc(10rem - 72px);
+  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url("../img/remy-4.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+}
+
+.connect-list {
+  list-style:none;
+  margin-left:0;
+  padding-left:0;
+}
+
+.connect-list-row {
+  margin-bottom: 0.4em;
+}
+
 .input-xl {
   padding: 1rem 2rem;
   font-size: 1rem;
@@ -28,10 +60,16 @@
   vertical-align: middle;
 }
 
-.text-white-80 {
-  color: rgba(255, 255, 255, 0.8) !important;
+.mytest {
+  width: 20em;
+  font-weight: 700;
+  border: none;
+  font-family: "Open Sans", sans-serif;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  vertical-align: middle;
 }
 
-.font-orange {
-	color: #C45525;
+.bg-contact {
+  background-color: #ffffff;
 }

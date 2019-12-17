@@ -22,4 +22,5 @@ urlpatterns = [
     path('site_admin/', admin.site.urls),
     path('', views.index),
     path('comparator/', include('comparator.urls')),
+    path('user/', include('user.urls')),
 ]

@@ -6225,7 +6225,7 @@ a.close.disabled {
 }
 
 .bg-primary {
-  background-color: #f4623a !important;
+  background-color: #C45525 !important;
 }
 
 a.bg-primary:hover, a.bg-primary:focus,
@@ -6285,7 +6285,7 @@ button.bg-danger:focus {
 }
 
 .bg-light {
-  background-color: #f8f9fa !important;
+  background-color: #345A61 !important;
 }
 
 a.bg-light:hover, a.bg-light:focus,
@@ -9675,7 +9675,7 @@ hr.light {
   }
 }
 
-header.masthead {
+header.masthead-img {
   padding-top: 10rem;
   padding-bottom: calc(10rem - 72px);
   background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url("../img/bg-purbeurre.jpg");

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -19,6 +20,8 @@ class Food(models.Model):
 	pict = models.URLField()
 	off_url = models.URLField()
 	category = models.ForeignKey(Category, on_delete=models.CASCADE)
+	user = models.ManyToManyField(User, related_name='food', blank=True)
+
 
 	def __str__(self):
 		return self.name
