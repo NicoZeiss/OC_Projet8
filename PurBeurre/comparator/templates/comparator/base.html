@@ -42,6 +42,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto my-2 my-lg-0">
+          {% if request.user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger">
               <input type="text" placeholder="Rechercher">
@@ -58,10 +59,33 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="/user/connection">
+            <a class="nav-link js-scroll-trigger" href="{% url 'user:logout' %}">
+              <i class="nav-icons fas fa-sign-out-alt"></i>
+            </a>
+          </li>
+          {% else %}
+           <li class="nav-item">
+            <a class="nav-link js-scroll-trigger">
+              <input type="text" placeholder="Rechercher">
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger">
+              <i class="nav-icons fas fa-user-alt"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger">
+              <i class="nav-icons fas fa-carrot"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="{% url 'user:connexion' %}">
               <i class="nav-icons fas fa-sign-in-alt"></i>
             </a>
           </li>
+          {% endif %}
+
         </ul>
       </div>
     </div>

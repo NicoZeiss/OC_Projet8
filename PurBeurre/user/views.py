@@ -1,9 +1,34 @@
-from django.http import HttpResponse
-from django.template import loader
+from django.shortcuts import render, reverse
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponseRedirect
 
-def account(request):
+from .forms import LoginForm
+
+
+def create_user(request):
 	pass
 
-def connection(request):
-	template = loader.get_template('comparator/connection.html')
-	return HttpResponse(template.render(request=request))
+def connexion(request):
+	error = False
+
+	if request.method == 'POST':
+		form = LoginForm(request.POST)
+
+		if form.is_valid():
+			username = form.cleaned_data['username']
+			password = form.cleaned_data['password']
+			user = authenticate(username=username, password=password)
+			if user is not None:
+				login(request, user)
+				return HttpResponseRedirect(reverse('user:connexion'))
+			else:
+				error = True
+
+	else:
+		form = LoginForm()
+
+	return render(request, 'comparator/login.html', {'form': form})
+
+def logout_user(request):
+	logout(request)
+	return HttpResponseRedirect(reverse('index'))

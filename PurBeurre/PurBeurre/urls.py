@@ -20,7 +20,7 @@ from comparator import views
 
 urlpatterns = [
     path('site_admin/', admin.site.urls),
-    path('', views.index),
-    path('comparator/', include('comparator.urls')),
-    path('user/', include('user.urls')),
+    path('', views.index, name="index"),
+    path('comparator/', include('comparator.urls', namespace='comparator')),
+    path('user/', include('user.urls', namespace='user')),
 ]
