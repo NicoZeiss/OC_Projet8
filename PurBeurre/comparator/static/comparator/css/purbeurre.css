@@ -6,17 +6,14 @@
   margin-top: 10px;
 }
 
-.navbar-logo {
-  width: 2em;
-  height: 2em;
-  vertical-align: middle;
-  background: no-repeat center center;
-  background-size: 100% 100%;
-}
-
 .nav-icons {
 	height: auto;
 	width: auto;
+}
+
+.nav-logo {
+  height: 40px;
+  width: auto;
 }
 
 .text-white-80 {
@@ -35,6 +32,16 @@ header.connect-img {
   padding-top: 10rem;
   padding-bottom: calc(10rem - 72px);
   background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url("../img/remy-4.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+}
+
+header.account-img {
+  padding-top: 10rem;
+  padding-bottom: calc(10rem - 72px);
+  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url("../img/ratatouille-11.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
@@ -60,6 +67,10 @@ header.connect-img {
   vertical-align: middle;
 }
 
+a {
+  font-family: "Open Sans", sans-serif;
+}
+
 .mytest {
   width: 20em;
   font-weight: 700;
@@ -70,6 +81,66 @@ header.connect-img {
   vertical-align: middle;
 }
 
+.search-button {
+  width: 10em;
+  font-weight: 700;
+  border: none;
+  font-family: "Open Sans", sans-serif;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  vertical-align: middle;
+}
+
 .bg-contact {
   background-color: #ffffff;
+}
+
+.bg-account {
+  background-color: #DE9440;
+}
+
+.sect-h-100 {
+  min-height: 45rem;
+  padding-top: 72px;
+  padding-bottom: 0;
+}
+
+.navbar-username {
+  margin-right: 1rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+.food-pict {
+  max-height: 180px;
+  width: auto;
+  max-width: 180px;
+  margin: auto;
+}
+
+.food-item {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+
+@media (min-width: 992px) {
+  header.masthead-mini {
+    height: 20%;
+    min-height: 20rem;
+    padding-top: 72px;
+    padding-bottom: 0;
+  }
+  header.masthead-mini p {
+    font-size: 1.15rem;
+  }
+  header.masthead-mini h1 {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .navbar-username {
+    display: none;
+  }
 }

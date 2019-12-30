@@ -4,6 +4,5 @@ from . import views
 app_name = 'comparator'
 
 urlpatterns = [
-	# url(r'^$', views.listing),
-	# url(r'^search/$', views.search),
+	url(r'^search/$', views.search, name="search"),
 ]

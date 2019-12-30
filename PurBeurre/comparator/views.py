@@ -1,35 +1,36 @@
-from django.shortcuts import render
+import django.contrib.postgres
+from django.shortcuts import render, reverse
+from django.http import HttpResponseRedirect
+from django.http import HttpResponse
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django import forms
+from .forms import SearchForm
+from .models import Food, Category
 
 
 def index(request):
+	form = SearchForm()
+	return render(request, 'comparator/index.html', {'form': form})
 
-	return render(request, 'comparator/index.html')
 
+def search(request):
+	query = request.GET.get('user_input')
+	result_list = Food.objects.filter(name__contains=query)
+	paginator = Paginator(result_list, 9)
+	page = request.GET.get("page")
 
-# def listing(request):
-# 	message = "La liste de produits ici :"
-# 	return HttpResponse(message)
+	try:
+		food = paginator.page(page)
+	except PageNotAnInteger:
+		food = paginator.page(1)
+	except EmptyPage:
+		food = paginator.page(paginator.num_pages)
 
-# def search(request):
-# 	query = request.GET.get('query')
+	context = {
+		"query": query,
+		"food": food,
+		"paginate": True
+	}	
 
-# 	if not query:
-# 		message = "Aucun aliment n'est demandé"
-# 	else:
-# 		categories = [
-# 			categorie for categorie in CATEGORIES
-# 			if query in " ".join(aliment['name'] for aliment in categorie['aliments'])
-# 		]
-
-# 		if len(categories) == 0:
-# 			message = "Misère, pas de résultat trouvé"
-# 		else:
-# 			categories = ["<li>{}</li>".format(categorie['name']) for categorie in categories]
-# 			message = """
-# 				Nous avons trouvé les catégories correspondant à votre requête, les voici :
-# 				<ul>
-# 					{}
-# 				</ul>
-# 				""".format("</li><li>".join(categories))
-
-# 	return HttpResponse(message)
+	return render(request, 'comparator/search.html', context)
+	

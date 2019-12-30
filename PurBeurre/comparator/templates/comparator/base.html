@@ -36,7 +36,8 @@
     <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="/">Start Bootstrap</a>
+      <a class="navbar-brand js-scroll-trigger" href="/"><img class="nav-logo" src="{% static 'comparator/img/logo_pur_beurre.png' %}" alt="Logo de Pur Beurre"></a>
+      <a class="navbar-brand js-scroll-trigger" href="/">Pur Beurre</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -46,10 +47,14 @@
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger">
               <input type="text" placeholder="Rechercher">
+              <button type="submit" class="mytest btn btn-primary btn-xl js-scroll-trigger">Valider</button>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger">
+            <a class="nav-link js-scroll-trigger">{{ request.user }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="{% url 'user:account' %}">
               <i class="nav-icons fas fa-user-alt"></i>
             </a>
           </li>
@@ -66,22 +71,15 @@
           {% else %}
            <li class="nav-item">
             <a class="nav-link js-scroll-trigger">
-              <input type="text" placeholder="Rechercher">
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger">
-              <i class="nav-icons fas fa-user-alt"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger">
-              <i class="nav-icons fas fa-carrot"></i>
+              <form method='post'>
+                <input type="text" placeholder="Rechercher">
+                <button type="submit" class=""><i class="nav-icons fas fa-search"></i></button>
+              </form>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="{% url 'user:connexion' %}">
-              <i class="nav-icons fas fa-sign-in-alt"></i>
+              <i class="nav-icons fas fa-user-alt"></i>
             </a>
           </li>
           {% endif %}

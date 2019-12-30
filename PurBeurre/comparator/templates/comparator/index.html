@@ -12,9 +12,10 @@
       </div>
       <div class="col-lg-8 align-self-baseline">
         <h4 class="text-white mb-5">Trouvez un produit de substitution pour ceux que vous consommez tous les jours.</h4>
-        <form>
-          <input class="input-xl" type="text" placeholder="Aliment...">
-          <a class="btn btn-primary btn-xl js-scroll-trigger">Chercher</a>
+        <form method='get' action="{% url 'comparator:search' %}">
+          {% csrf_token %}
+          {{ form }}
+          <button type="submit" class="search-button btn btn-primary btn-xl js-scroll-trigger">Chercher</button>
         </form>
       </div>
     </div>

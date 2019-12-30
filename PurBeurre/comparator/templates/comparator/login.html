@@ -16,9 +16,13 @@
           {% csrf_token %}
           <ul class="connect-list">
             {{ form.as_ul }}
+            {{ error_message }}
           	<li class="connect-list-row"><button type="submit" class="mytest btn btn-primary btn-xl js-scroll-trigger">Valider</button></li>
           </ul>
         </form>
+        <div>
+          <a class="text-uppercase text-white font-weight-bold" href="{% url 'user:create_user' %}">Créer un compte utilisateur</a>
+        </div>
       </div>
     </div>
   </div>
