@@ -111,17 +111,82 @@ a {
   margin-right: 2rem;
 }
 
-.food-pict {
-  max-height: 180px;
-  width: auto;
-  max-width: 180px;
-  margin: auto;
+.food-item-box {
+  height: 15em;
+  padding: 0.8em;
+/*  border: ridge 4px brown;*/
 }
 
 .food-item {
   display: flex;
-  margin-bottom: 15px;
+  flex-direction: column;
+  height: 100%;
+  background-color: black;
+  border-radius: 5px;
+  box-shadow: 10px 5px 5px black;
 }
+
+.subs-button {
+  width: 100%;
+  font-weight: 700;
+  border: none;
+  border-radius: 0px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  font-family: "Open Sans", sans-serif;
+  padding: 0.3rem 2rem;
+  font-size: 1rem;
+  vertical-align: middle;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cap-text {
+  text-transform: lowercase;
+}
+
+.cap-text::first-letter {
+  text-transform: capitalize;
+}
+
+.nutriscore {
+  border-radius: 40%;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background-color: #de9440;
+  text-transform: uppercase;
+  font-size: 1.5em;
+  font-family: "Open Sans", sans-serif;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+.nutriscore[data-score="a"] {
+    background-color: #00823f;
+}
+
+.nutriscore[data-score="b"] {
+    background-color: #86bd2b;
+}
+
+.nutriscore[data-score="c"] {
+    background-color: #fecc00;
+}
+
+.nutriscore[data-score="d"] {
+    background-color: #ef8200;
+}
+
+.nutriscore[data-score="e"] {
+    background-color: #e73c09;
+}
+
+.bg-beige {
+  background-color: #DE9440;
+}
+
+
 
 
 @media (min-width: 992px) {

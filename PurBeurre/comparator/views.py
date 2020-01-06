@@ -1,5 +1,5 @@
 import django.contrib.postgres
-from django.shortcuts import render, reverse
+from django.shortcuts import render, reverse, render_to_response
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -15,7 +15,7 @@ def index(request):
 
 def search(request):
 	query = request.GET.get('user_input')
-	result_list = Food.objects.filter(name__contains=query)
+	result_list = Food.objects.filter(name__icontains=query)
 	paginator = Paginator(result_list, 9)
 	page = request.GET.get("page")
 
@@ -27,10 +27,10 @@ def search(request):
 		food = paginator.page(paginator.num_pages)
 
 	context = {
-		"query": query,
+		"user_input": query,
 		"food": food,
 		"paginate": True
 	}	
 
 	return render(request, 'comparator/search.html', context)
-	
+
