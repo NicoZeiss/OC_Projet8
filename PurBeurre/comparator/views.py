@@ -34,3 +34,12 @@ def search(request):
 
 	return render(request, 'comparator/search.html', context)
 
+def detail(request, bar_code):
+	food = Food.objects.get(code=bar_code)
+
+	context = {
+		"food": food
+	}
+
+	return render(request, 'comparator/detail.html', context)
+

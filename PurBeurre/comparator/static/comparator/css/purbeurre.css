@@ -100,7 +100,13 @@ a {
 }
 
 .sect-h-100 {
-  min-height: 45rem;
+  min-height: 62rem;
+  padding-top: 72px;
+  padding-bottom: 0;
+}
+
+.sect-h-70 {
+  min-height: 41rem;
   padding-top: 72px;
   padding-bottom: 0;
 }
@@ -114,7 +120,6 @@ a {
 .food-item-box {
   height: 15em;
   padding: 0.8em;
-/*  border: ridge 4px brown;*/
 }
 
 .food-item {
@@ -141,6 +146,33 @@ a {
   margin-right: auto;
 }
 
+.subs-button2 {
+  width: 100%;
+  font-weight: 700;
+  border-bottom: 0.5mm solid rgb(44, 18, 0);
+  border-radius: 0px;
+  font-family: "Open Sans", sans-serif;
+  padding: 0.3rem 2rem;
+  font-size: 1rem;
+  vertical-align: middle;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.off-button {
+  width: 100%;
+  font-weight: 700;
+  border-radius: 0px;
+  font-family: "Open Sans", sans-serif;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  box-shadow: 3px 3px 3px #202524;
+  vertical-align: middle;
+  margin-top: 10em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .cap-text {
   text-transform: lowercase;
 }
@@ -162,30 +194,98 @@ a {
   padding-right: 0.5em;
 }
 
-.nutriscore[data-score="a"] {
+[data-score="a"] {
     background-color: #00823f;
+    color: #6dbb93;
+    font-weight: bold;
 }
 
-.nutriscore[data-score="b"] {
+[data-score="b"] {
     background-color: #86bd2b;
+    color: #bad682;
+    font-weight: bold;
 }
 
-.nutriscore[data-score="c"] {
+[data-score="c"] {
     background-color: #fecc00;
+    color: #fde07a;
+    font-weight: bold;
 }
 
-.nutriscore[data-score="d"] {
+[data-score="d"] {
     background-color: #ef8200;
+    color: #f6b37c;
+    font-weight: bold;
 }
 
-.nutriscore[data-score="e"] {
+[data-score="e"] {
     background-color: #e73c09;
+    color: #f48f63;
+    font-weight: bold;
 }
 
 .bg-beige {
   background-color: #DE9440;
 }
 
+.bg-beige-light {
+  background-color: #E8A75D;
+}
+
+.page-section-7 {
+  padding: 7rem 0;
+}
+
+.food-name {
+  background-color: rgba(52, 90, 97, 0.85);
+  padding-top: 0.8em;
+  padding-bottom: 0.8em;
+}
+
+.nutri-text {
+  padding-bottom: 0.5em;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #345A61;
+  text-transform: uppercase;
+}
+
+.nutri-box {
+  height: 5em;
+  text-align: center;
+  position: absolute;
+}
+
+.grade {
+  font-family: "Open Sans", sans-serif;
+  font-size: 2em;
+  height: 2em;
+  width: 1.1em;
+  margin: auto;
+  padding-top: 0.2em;
+}
+
+#grade-a {
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+#grade-e {
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.nutri-list {
+  list-style: none;
+}
+
+.nutri-item {
+  font-family: "Open Sans", sans-serif;
+  color: #345A61;
+  font-size: 1.2em;
+  font-weight: bold;
+}
 
 
 
@@ -208,4 +308,28 @@ a {
   .navbar-username {
     display: none;
   }
+
+  .small-screen-margin {
+    padding-top: 2em;
+  }
+
+  .nutri-text {
+    margin-top: 3em;
+    text-align: center;
+  }
+
+  .center-ls {
+    margin: auto;max-width: 14em;
+  }
+
+  .nutri-box {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .off-button {
+    margin-top: 3em;
+    margin-bottom: 3em;
+  }
+
 }

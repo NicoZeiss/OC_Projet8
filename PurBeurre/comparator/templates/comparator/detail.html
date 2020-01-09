@@ -1,0 +1,56 @@
+{% extends 'comparator/base.html' %}
+{% load static %}
+
+{% block content %}
+
+  <section class="page-section-7" style="background-image: url('{{ food.pict }}');background-size: cover;background-repeat: no-repeat;background-position: 0 50%;">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <h2 class="text-white mt-0 food-name">{{ food.name }}</h2>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="page-section bg-beige-light sect-h-70">
+    <div class="container">
+    	<div class="row">
+    		<div class="col-lg-4 center-ls">
+		    	<div class="nutri-text">Nutri-score</div>
+		    	<div class="row nutri-box">
+		    		<div class="grade cap-text" id="grade-a" data-score="a">a</div>
+		    		<div class="grade cap-text" id="grade-b" data-score="b">b</div>
+		    		<div class="grade cap-text" id="grade-c" data-score="c">c</div>
+		    		<div class="grade cap-text" id="grade-d" data-score="d">d</div>
+		    		<div class="grade cap-text" id="grade-e" data-score="e">e</div>
+	    			<style type="text/css">
+	    				#grade-{{ food.nutriscore }} {height: 2.5em;width: 1.2em;margin-left: 0.2em;margin-right:0.2em;border-radius: 15px;padding-top: 0.5em;box-shadow: 3px 3px 3px #202524;}
+	    			</style>
+		    	</div>
+		    </div>
+		    <div class="col-lg-3"></div>
+		    <div class="col-lg-5">
+		    	<div class="nutri-text small-screen-margin">Repères nutritionnels pour 100g :</div>
+		    	<ul class="nutri-list">
+		    		{% if food.fat != 0 %}
+		    			<li class="nutri-item cap-text">Matières grasses : {{ food.fat }} g</li>
+		    		{% endif %}
+		    		{% if food.saturated_fat != 0 %}
+		    			<li class="nutri-item cap-text">Acides gras saturés : {{ food.saturated_fat }} g</li>
+		    		{% endif %}
+		    		{% if food.sugars != 0 %}
+		    			<li class="nutri-item cap-text">Sucres : {{ food.sugars }} g</li>
+		    		{% endif %}
+		    		{% if food.salt != 0 %}
+		    			<li class="nutri-item cap-text">Sel : {{ food.salt }} g</li>
+		    		{% endif %}
+		    	</ul>
+		    </div>
+	    </div>
+	    <button class="off-button btn btn-primary btn-xl" onclick="window.location.href = '{{ food.off_url }}';">Consulter la page Open Food Facts</button>
+    </div>
+  </section>
+
+{% endblock %}
