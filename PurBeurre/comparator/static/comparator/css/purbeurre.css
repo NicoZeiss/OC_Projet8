@@ -287,6 +287,9 @@ a {
   font-weight: bold;
 }
 
+.hidden-field {
+  display: none;
+}
 
 
 @media (min-width: 992px) {
