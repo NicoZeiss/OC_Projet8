@@ -1,35 +1,38 @@
 {% extends 'comparator/base.html' %}
 {% load static %}
 
+
 {% block content %}
 
 <section class="page-section-7" style="background-image: url('{{ query.pict }}');background-size: cover;background-repeat: no-repeat;background-position: 0 50%;">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-8 text-center">
-        <h2 class="text-white mt-0 food-name">{{ query.name }}</h2>
+        <h2 class="text-white mt-0 food-name" id="user_query">{{ query.name }}</h2>
       </div>
     </div>
   </div>
 </section>
 
 <section class="page-section bg-beige sect-h-100">
-  <div class="container h-0">
-    <div class="row h-100 align-items-center justify-content-center text-center">
-      <div class="col-lg-12 align-self-end">
-        <h3 class="text-uppercase text-white font-weight-bold">{{ query.name }}</h3>
-        <hr class="divider my-4">
-      </div>
-    </div>
     <div class="container">
 	    <div class="row">
-		  {% for item in sublist %}
-			  <div class="col-sm-4 text-center food-item-box"><span class="nutriscore" data-score="{{ item.nutriscore }}">{{ item.nutriscore }}</span>
+
+			  {% for key, value in subdic.items %}
+			  <div class="col-sm-4 text-center food-item-box"><span class="nutriscore" data-score="{{ key.nutriscore }}">{{ key.nutriscore }}</span>
 			  	<div class="food-item">
-			  	  <div style="background-image: url('{{ item.pict }}');background-size: cover;background-position: 0px 50%;height: 85%;border-top-left-radius: 5px;border-top-right-radius: 5px;"></div>
-			  	  <button class="subs-button2 btn btn-primary btn-xl cap-text" onclick="window.location.href = '{% url 'comparator:detail' bar_code=item.code %}';">{{ item.name }}</button>
+			  	  <div style="background-image: url('{{ key.pict }}');background-size: cover;background-position: 0px 50%;height: 85%;border-top-left-radius: 5px;border-top-right-radius: 5px;"></div>
+			  	  <button class="subs-button2 btn btn-primary btn-xl cap-text" onclick="window.location.href = '{% url 'comparator:detail' bar_code=key.code %}';">{{ key.name }}</button>
 			  	  {% if request.user.is_authenticated %}
-				  	<button type="submit" class="subs-button btn btn-primary btn-xl cap-text">Ajouter aux favoris</button>
+			  	  	{% if value == True %}
+			  	  		<button class="subs-button btn btn-primary btn-xl cap-text saved_fav">Déja en favoris</button>
+			  	  	{% else %}
+				  	  	<form method="get" action="{% url 'comparator:save_sub' %}">
+					  	  	<input type="text" name="query_code" class="hidden-field" value="{{ query.code }}">
+					  	  	<input type="text" name="sub_code" class="hidden-field" value="{{ key.code }}">
+						  	<button type="submit" class="subs-button btn btn-primary btn-xl cap-text">Ajouter aux favoris</button>
+						</form>
+					{% endif %}
 				  {% else %}
 				    <button class="subs-button btn btn-primary btn-xl cap-text" onclick="window.location.href = '{% url 'user:connexion' %}';">Ajouter aux favoris</button>
 				  {% endif %}

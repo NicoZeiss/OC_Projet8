@@ -1,0 +1,61 @@
+{% extends 'comparator/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="page-section-7 fav-bg">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 text-center">
+        <h2 class="text-white mt-0 food-name" id="user_query">Vos favoris</h2>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page-section bg-beige sect-h-100">
+  <div class="container h-0">
+    {% if sublist|length_is:"0" %}
+    	<h4 class="text-uppercase text-center text-white font-weight-bold">Vous n'avez aucun favori enregistré</h4>
+    {% else %}
+    <div class="container">
+	    <div class="row">
+		  {% for item in sublist %}
+			  <div class="col-sm-4 text-center food-item-box"><span class="nutriscore" data-score="{{ item.nutriscore }}">{{ item.nutriscore }}</span>
+			  	<div class="food-item">
+			  	  <div style="background-image: url('{{ item.pict }}');background-size: cover;background-position: 0px 50%;height: 85%;border-top-left-radius: 5px;border-top-right-radius: 5px;"></div>
+			  	  <button class="subs-button2 btn btn-primary btn-xl cap-text" onclick="window.location.href = '{% url 'comparator:detail' bar_code=item.code %}';">{{ item.name }}</button>
+			    </div>
+			  </div>
+		  {% endfor %}
+	    </div>
+	</div>
+    {% endif %}
+      <div class="clearfix"></div>
+
+    {% if sublist.has_other_pages %}
+	  <ul class="pagination">
+	    {% if sublist.has_previous %}
+	      <li><a href="?user_input={{ user_input }}&page={{ sublist.previous_page_number }}">&laquo;</a></li>
+	    {% else %}
+	      <li class="disabled"><span>&laquo;</span></li>
+	    {% endif %}
+	    {% for i in sublist.paginator.page_range %}
+	      {% if sublist.number == i %}
+	        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+	      {% else %}
+	        <li><a href="?page={{ i }}">{{ i }}</a></li>
+	      {% endif %}
+	    {% endfor %}
+	    {% if sublist.has_next %}
+	      <li><a href="?&page={{ sublist.next_page_number }}">&raquo;</a></li>
+	    {% else %}
+	      <li class="disabled"><span>&raquo;</span></li>
+	    {% endif %}
+	  </ul>
+	{% endif %}
+
+  </div>
+</section>
+
+{% endblock %}

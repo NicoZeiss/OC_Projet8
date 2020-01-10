@@ -21,8 +21,8 @@
 			  	<div class="food-item">
 			  	  <div style="background-image: url('{{ item.pict }}');background-size: cover;background-position: 0px 50%;height: 85%;border-top-left-radius: 5px;border-top-right-radius: 5px;"></div>
 			  	  <button class="subs-button2 btn btn-primary btn-xl cap-text" onclick="window.location.href = '{% url 'comparator:detail' bar_code=item.code %}';">{{ item.name }}</button>
-			  	  <form methog="get" action="{% url 'comparator:substitute' %}">
-			  	  	<input type="text" name="user-substitute" class="hidden-field" value="{{ item.code }}">
+			  	  <form method="get" action="{% url 'comparator:substitute' %}">
+			  	  	<input type="text" name="user_substitute" class="hidden-field" value="{{ item.code }}">
 				  	<button type="submit" class="subs-button btn btn-primary btn-xl cap-text">Trouver un substitut</button>
 				  </form>
 			    </div>

@@ -291,6 +291,21 @@ a {
   display: none;
 }
 
+.saved_fav {
+  background-color: #345A61;
+}
+
+.saved_fav:hover {
+  color: black;
+  background-color: #86EBE6;
+}
+
+.fav-bg {
+  background-image: url('../img/ratatouille-11.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 0 50%;
+}
 
 @media (min-width: 992px) {
   header.masthead-mini {
