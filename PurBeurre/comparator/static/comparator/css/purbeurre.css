@@ -257,6 +257,10 @@ a {
   position: absolute;
 }
 
+.center-text {
+  text-align: center;
+}
+
 .grade {
   font-family: "Open Sans", sans-serif;
   font-size: 2em;
@@ -278,6 +282,12 @@ a {
 
 .nutri-list {
   list-style: none;
+}
+
+.list-center {
+  list-style:none;
+  margin-left:0;
+  padding-left:0;
 }
 
 .nutri-item {
@@ -305,6 +315,13 @@ a {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 0 50%;
+}
+
+.fav-bg {
+  background-image: url('../img/terms_bg.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 0 30%;
 }
 
 @media (min-width: 992px) {

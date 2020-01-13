@@ -97,7 +97,10 @@
   <!-- Footer -->
   <footer class="bg-light py-5">
     <div class="container">
-      <div class="small text-center footer-text">Copyright &copy; 2019 - Start Bootstrap</div>
+      <div class="row">
+        <div class="col-lg-6 small text-center"><a class="footer-text" href="{% url 'comparator:terms' %}">Mentions légales</a></div>
+        <div class="col-lg-6 small text-center"><a class="footer-text" href="{% url 'index' %}#contact">Contact</a></div>
+      </div>
     </div>
   </footer>
 

@@ -1,5 +1,5 @@
 import django.contrib.postgres
-from django.shortcuts import render, reverse, render_to_response
+from django.shortcuts import render, reverse, render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib.auth.models import User
@@ -37,7 +37,8 @@ def search(request):
 
 
 def detail(request, bar_code):
-	food = Food.objects.get(code=bar_code)
+	# food = Food.objects.get(code=bar_code)
+	food = get_object_or_404(Food, code=bar_code)
 
 	context = {
 		"food": food
@@ -99,4 +100,8 @@ def favourites(request):
 	}
 
 	return render(request, 'comparator/favourites.html', context)
+
+
+def terms(request):
+	return render(request, 'comparator/terms.html')
 
