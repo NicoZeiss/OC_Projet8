@@ -11,7 +11,7 @@ class LoginTestCase(TestCase):
 		}
 		User.objects.create_user(**self.credentials)
 
-	def test_login(self):
-		response = self.client.post(reverse('user:connexion'), **self.credentials)
-		user = authenticate()
-		print(response.context['user'])
+	# def test_login(self):
+	# 	response = self.client.post(reverse('user:connexion'), **self.credentials)
+	# 	user = authenticate()
+	# 	print(response.context['user'])
