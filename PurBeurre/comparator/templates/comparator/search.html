@@ -36,21 +36,21 @@
     {% if food.has_other_pages %}
 	  <ul class="pagination">
 	    {% if food.has_previous %}
-	      <li><a href="?user_input={{ user_input }}&page={{ food.previous_page_number }}">&laquo;</a></li>
+	      <li class="paginate-inactive"><a class="text-white" href="?user_input={{ user_input }}&page={{ food.previous_page_number }}">&laquo;</a></li>
 	    {% else %}
-	      <li class="disabled"><span>&laquo;</span></li>
+	      <li class="disabled paginate-active"><span>&laquo;</span></li>
 	    {% endif %}
 	    {% for i in food.paginator.page_range %}
 	      {% if food.number == i %}
-	        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+	        <li class="active paginate-active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
 	      {% else %}
-	        <li><a href="?user_input={{ user_input }}&page={{ i }}">{{ i }}</a></li>
+	        <li class="paginate-inactive"><a class="text-white" href="?user_input={{ user_input }}&page={{ i }}">{{ i }}</a></li>
 	      {% endif %}
 	    {% endfor %}
 	    {% if food.has_next %}
-	      <li><a href="?user_input={{ user_input }}&page={{ food.next_page_number }}">&raquo;</a></li>
+	      <li class="paginate-inactive"><a class="text-white" href="?user_input={{ user_input }}&page={{ food.next_page_number }}">&raquo;</a></li>
 	    {% else %}
-	      <li class="disabled"><span>&raquo;</span></li>
+	      <li class="disabled paginate-active"><span>&raquo;</span></li>
 	    {% endif %}
 	  </ul>
 	{% endif %}

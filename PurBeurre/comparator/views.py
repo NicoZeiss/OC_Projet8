@@ -16,7 +16,7 @@ def index(request):
 
 def search(request):
 	query = request.GET.get('user_input')
-	result_list = Food.objects.filter(name__icontains=query)
+	result_list = Food.objects.filter(name__icontains=query).order_by('code')
 	paginator = Paginator(result_list, 9)
 	page = request.GET.get("page")
 
@@ -37,7 +37,6 @@ def search(request):
 
 
 def detail(request, bar_code):
-	# food = Food.objects.get(code=bar_code)
 	food = get_object_or_404(Food, code=bar_code)
 
 	context = {
@@ -49,7 +48,7 @@ def detail(request, bar_code):
 
 def substitute(request):
 	query = request.GET.get('user_substitute')
-	user_choice = Food.objects.get(code=query)
+	user_choice = get_object_or_404(Food, code=query)
 	choice_cat = user_choice.category_id
 	full_list = Food.objects.filter(category_id=choice_cat).order_by('nutriscore')
 	sub_dic = {}
@@ -82,24 +81,28 @@ def save_sub(request):
 
 
 def favourites(request):
-	user = request.user
-	sub_list = user.food.all().order_by('nutriscore')
-	paginator = Paginator(sub_list, 9)
-	page = request.GET.get("page")
+	if request.user.is_authenticated:
+		user = request.user
+		sub_list = user.food.all().order_by('nutriscore')
+		paginator = Paginator(sub_list, 9)
+		page = request.GET.get("page")
 
-	try:
-		sublist = paginator.page(page)
-	except PageNotAnInteger:
-		sublist = paginator.page(1)
-	except EmptyPage:
-		sublist = paginator.page(paginator.num_pages)
+		try:
+			sublist = paginator.page(page)
+		except PageNotAnInteger:
+			sublist = paginator.page(1)
+		except EmptyPage:
+			sublist = paginator.page(paginator.num_pages)
 
 
-	context = {
-		"sublist": sublist
-	}
+		context = {
+			"sublist": sublist
+		}
 
-	return render(request, 'comparator/favourites.html', context)
+		return render(request, 'comparator/favourites.html', context)
+
+	else:
+		return HttpResponseRedirect(reverse('user:connexion'))
 
 
 def terms(request):

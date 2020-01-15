@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<section class="page-section-7 terms-bg">
+<section class="page-section-7 fav-bg">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-8 text-center">
@@ -36,21 +36,21 @@
     {% if sublist.has_other_pages %}
 	  <ul class="pagination">
 	    {% if sublist.has_previous %}
-	      <li><a href="?user_input={{ user_input }}&page={{ sublist.previous_page_number }}">&laquo;</a></li>
+	      <li class="paginate-inactive"><a class="text-white" href="?&page={{ sublist.previous_page_number }}">&laquo;</a></li>
 	    {% else %}
-	      <li class="disabled"><span>&laquo;</span></li>
+	      <li class="disabled paginate-active"><span>&laquo;</span></li>
 	    {% endif %}
 	    {% for i in sublist.paginator.page_range %}
 	      {% if sublist.number == i %}
-	        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+	        <li class="active paginate-active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
 	      {% else %}
-	        <li><a href="?page={{ i }}">{{ i }}</a></li>
+	        <li class="paginate-inactive"><a class="text-white" href="?page={{ i }}">{{ i }}</a></li>
 	      {% endif %}
 	    {% endfor %}
 	    {% if sublist.has_next %}
-	      <li><a href="?&page={{ sublist.next_page_number }}">&raquo;</a></li>
+	      <li class="paginate-inactive"><a class="text-white" href="?&page={{ sublist.next_page_number }}">&raquo;</a></li>
 	    {% else %}
-	      <li class="disabled"><span>&raquo;</span></li>
+	      <li class="disabled paginate-active"><span>&raquo;</span></li>
 	    {% endif %}
 	  </ul>
 	{% endif %}

@@ -317,11 +317,29 @@ a {
   background-position: 0 50%;
 }
 
-.fav-bg {
+.terms-bg {
   background-image: url('../img/terms_bg.jpeg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 0 30%;
+}
+
+.paginate-active {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  border-radius: 5px;
+  margin-right: 0.1em;
+  background-color: #86EBE6;
+  color: #000000;
+}
+
+.paginate-inactive {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  border-radius: 5px;
+  margin-right: 0.1em;
+  background-color: #345A61;
+  color: blue;
 }
 
 @media (min-width: 992px) {
