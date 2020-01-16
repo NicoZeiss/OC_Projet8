@@ -23,9 +23,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '@b0i*l1g^sb2bcl+fm#a*0bd!cvwm-hs2b%m%qr18f9cf584hy'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if os.environ.get('ENV') == ('PRODUCTION'):
+    DEBUG = False
+else:
+    DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'purbeurre-nz.herokuapp.com']
 
 
 # Application definition

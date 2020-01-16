@@ -1,1 +1,8 @@
 env/
+PurBeurre/__pycache__/
+PurBeurre/comparator/__pycache__/
+PurBeurre/comparator/migrations/__pycache__/
+PurBeurre/comparator/management/commands/__pycache__/
+PurBeurre/user/__pycache__/
+PurBeurre/user/migrations/__pycache__/
+
