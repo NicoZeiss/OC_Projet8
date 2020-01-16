@@ -3,6 +3,7 @@ from django.test import TestCase
 from .models import Food, Category
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from .init_db import populate_categories
 
 
 ##########################################################################################
@@ -10,16 +11,18 @@ from django.contrib.auth import authenticate, login
 ##########################################################################################
 
 
-# Index view
 class IndexViewTestCase(TestCase):
+	"""Testing index page"""
+
 	def test_index_view(self):
 		response = self.client.get(reverse('index'))
 		self.assertEqual(response.status_code, 200)
 		self.assertTemplateUsed(response, 'comparator/index.html')
 
 
-# Detail view
 class DetailViewTestCase(TestCase):
+	"""Testing detail page"""
+
 	def setUp(self):
 		category = Category.objects.create(name="MyCat")
 		cat_id = category.id
@@ -41,16 +44,18 @@ class DetailViewTestCase(TestCase):
 		self.assertTemplateUsed(response, '404.html')
 
 
-# Terms view
 class TermsViewTestCase(TestCase):
+	"""Testing terms page"""
+
 	def test_terms_view(self):
 		response = self.client.get(reverse('comparator:terms'))
 		self.assertEqual(response.status_code, 200)
 		self.assertTemplateUsed(response, 'comparator/terms.html')
 
 
-# Search view
 class SearchViewTestCase(TestCase):
+	"""Testing search page"""
+
 	def setUp(self):
 		category = Category.objects.create(name="MyCat")
 		cat_id = category.id
@@ -85,8 +90,9 @@ class SearchViewTestCase(TestCase):
 		self.assertEqual(response.context['paginate'], True)
 
 
-# Substitute view
 class SubstituteViewTestCase(TestCase):
+	"""Testing substitute page"""
+
 	def setUp(self):
 		category = Category.objects.create(name="MyCat")
 		cat_id = category.id
@@ -131,22 +137,98 @@ class SubstituteViewTestCase(TestCase):
 			i += 1
 
 
+class InitDbTestCase(TestCase):
+
+	def setUp(self):
+		self.test_cat = ["porridges"]
+
+	def test_create_db(self):
+		populate_categories(self.test_cat)
+		cat_name = Category.objects.get()
+		self.assertEqual(cat_name.name, self.test_cat[0])
+
+
 #######################################################################################################################################
 #   INTEGRATION TESTING   ##   INTEGRATION TESTING   ##   INTEGRATION TESTING   ##   INTEGRATION TESTING   ##   INTEGRATION TESTING   #
 #######################################################################################################################################
 
 
-# class FavouritesViewTestCase(TestCase):
-# 	def setUp(self):
-# 		self.user = User.objects.create_user("MyUser", "mymail@mail.com", "whatapassword")
-# 		self.username = self.user.username
-# 		self.password = self.user.password
+class SaveSubViewTestCase(TestCase):
+	"""We test that user can save food as substitute"""
 
-# 	def test_favourites_view_authenticated(self):
-# 		user = authenticate(username=self.username, password=self.password)
-# 		login(user)
-# 		response = self.client.get(reverse('comparator:favourites'))
-# 		print(response)
-# 		self.assertTrue(user_login)
+	def setUp(self):
+		self.username = "MyUsername"
+		self.password = "MyPassword"
+		self.email = "MyMail@mail.com"
+		self.user = User.objects.create_user(username=self.username, email=self.email)
+		self.user.set_password(self.password)
+		self.user.save()
 
+		category = Category.objects.create(name="MyCat")
+		cat_id = category.id
+		food = Food.objects.create(code="7", name="MyFood", category_id=cat_id)
+		substitute = Food.objects.create(code="8", name="MySubstitute", category_id=cat_id)
+		self.food = Food.objects.get(name="MyFood")
+		self.substitute = Food.objects.get(name="MySubstitute")
+
+	# If substitute is saved, user is redirected to sub result from his query
+	def test_save_substitute(self):
+		self.user = authenticate(username=self.username, password=self.password)
+		self.login = self.client.login(username=self.username, password=self.password)
+		food_code = self.food.code
+		sub_code = self.substitute.code
+		response = self.client.get(reverse('comparator:save_sub'), {'query_code': food_code, 'sub_code': sub_code})
+		self.assertEqual(response.status_code, 302)
+		self.assertEqual(response.url, "/comparator/substitute/?user_substitute=7")
+
+	# If user is not authenticated, he's redirected to connexion page
+	def test_sub_not_auth_redirect_connexion(self):
+		food_code = self.food.code
+		sub_code = self.substitute.code
+		response = self.client.get(reverse('comparator:save_sub'), {'query_code': food_code, 'sub_code': sub_code})
+		self.assertEqual(response.status_code, 302)
+		self.assertEqual(response.url, "/user/connexion/")
+
+
+class FavouritesViewTestCase(TestCase):
+	"""Testing favourites view"""
+	def setUp(self):
+		self.username = "MyUsername"
+		self.password = "MyPassword"
+		self.email = "MyMail@mail.com"
+		self.user = User.objects.create_user(username=self.username, email=self.email)
+		self.user.set_password(self.password)
+		self.user.save()
+
+		category = Category.objects.create(name="MyCat")
+		cat_id = category.id
+		items = [
+			{'code': "10", 'name': "cat", 'nutriscore': "a"},
+			{'code': "20", 'name': "dog", 'nutriscore': "b"},
+			{'code': "30", 'name': "duck", 'nutriscore': "b"},
+			{'code': "40", 'name': "horse", 'nutriscore': "d"},
+			{'code': "50", 'name': "bee", 'nutriscore': "a"},
+			{'code': "60", 'name': "cow", 'nutriscore': "a"},
+			{'code': "70", 'name': "bird", 'nutriscore': "a"},
+			{'code': "80", 'name': "fish", 'nutriscore': "c"},
+			{'code': "90", 'name': "sheep", 'nutriscore': "c"},
+			{'code': "100", 'name': "spider", 'nutriscore': "d"},
+		]
+		for item in items:
+			favourite = Food.objects.create(code=item['code'], name=item['name'], nutriscore=item['nutriscore'], category_id=cat_id)
+			self.user.food.add(favourite)
+
+	# We test that view returns 200 and fav template when user is authenticated
+	def test_favourites_view(self):
+		self.user = authenticate(username=self.username, password=self.password)
+		self.login = self.client.login(username=self.username, password=self.password)
+		response = self.client.get(reverse('comparator:favourites'))
+		self.assertEqual(response.status_code, 200)
+		self.assertTemplateUsed(response, 'comparator/favourites.html')
+
+	# We test that user is redirected to connexion page if he's not connected
+	def test_fav_not_auth_redirect_connexion(self):
+		response = self.client.get(reverse('comparator:favourites'))
+		self.assertEqual(response.status_code, 302)
+		self.assertEqual(response.url, "/user/connexion/")
 

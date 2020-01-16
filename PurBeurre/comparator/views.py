@@ -10,13 +10,19 @@ from .models import Food, Category
 
 
 def index(request):
+	"""Display index page"""
+
 	form = SearchForm()
 	return render(request, 'comparator/index.html', {'form': form})
 
 
 def search(request):
+	"""Send search form request and return results"""
+
 	query = request.GET.get('user_input')
+	# We filter into tthe db items which name contains user input
 	result_list = Food.objects.filter(name__icontains=query).order_by('code')
+	# Adding paginator in order to have 9 results per page
 	paginator = Paginator(result_list, 9)
 	page = request.GET.get("page")
 
@@ -37,6 +43,9 @@ def search(request):
 
 
 def detail(request, bar_code):
+	"""Display detail page"""
+
+	# If item does not exist, display 404 page
 	food = get_object_or_404(Food, code=bar_code)
 
 	context = {
@@ -47,15 +56,21 @@ def detail(request, bar_code):
 
 
 def substitute(request):
+	"""Display substitute page form user product choice"""
+
 	query = request.GET.get('user_substitute')
+	# If item does not exist, display 404 page
 	user_choice = get_object_or_404(Food, code=query)
 	choice_cat = user_choice.category_id
+	# Ordering items by nutriscore, in order to find best ones
 	full_list = Food.objects.filter(category_id=choice_cat).order_by('nutriscore')
 	sub_dic = {}
 	i = 0
+	# Iterating to have 9 results
 	while len(sub_dic) <= 8:
 		food = full_list[i]
 		user = request.user.id
+		# Checking if items is already added as favourite for authenticated user
 		if len(food.user.all()) != 0:
 			sub_dic[food] = True
 		else:
@@ -70,14 +85,21 @@ def substitute(request):
 	return render(request, 'comparator/substitute.html', context)
 
 def save_sub(request):
-	query_code = request.GET.get('query_code')
-	sub_code = request.GET.get('sub_code')
-	sub = Food.objects.get(code=sub_code)
-	user_id = request.user.id
-	user = User.objects.get(id=user_id)
-	user.food.add(sub)
+	"""Saving substitutes as favourites"""
 
-	return HttpResponseRedirect('http://127.0.0.1:8000/comparator/substitute/?user_substitute={}'.format(query_code))
+	if request.user.is_authenticated:
+		query_code = request.GET.get('query_code')
+		sub_code = request.GET.get('sub_code')
+		sub = Food.objects.get(code=sub_code)
+		user_id = request.user.id
+		user = User.objects.get(id=user_id)
+		user.food.add(sub)
+
+		return HttpResponseRedirect('/comparator/substitute/?user_substitute={}'.format(query_code))
+
+	else:
+		return HttpResponseRedirect(reverse('user:connexion'))
+
 
 
 def favourites(request):

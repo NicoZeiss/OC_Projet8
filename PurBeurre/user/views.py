@@ -59,4 +59,7 @@ def logout_user(request):
 	return HttpResponseRedirect(reverse('index'))
 
 def account(request):
-	return render(request, 'comparator/account.html')
+	if request.user.is_authenticated:
+		return render(request, 'comparator/account.html')
+	else:
+		return HttpResponseRedirect(reverse('user:connexion'))

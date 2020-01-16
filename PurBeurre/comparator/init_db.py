@@ -1,25 +1,24 @@
-import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "PurBeurre.settings")
-import django
-django.setup()
+# import os
+# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "PurBeurre.settings")
+# import django
+# django.setup()
 import requests
 
 from comparator.models import Category, Food
-from comparator.constants import categories_name, api_url, product_url, cat_url
+from comparator.constants import api_url, product_url, cat_url
+
+from django.core import management
 
 
-
-
-def populate_categories():
+def populate_categories(cat_name):
 	i = 1
-	for category in categories_name:
-		print("\nFeeding category [{}/{}] : {}...".format(i,len(categories_name), category))
+	for category in cat_name:
+		print("\nFeeding category [{}/{}] : {}...".format(i,len(cat_name), category))
 		new_cat = Category(name=category)
 		new_cat.save()
 		prod_count = extract_codes_from_api(new_cat)
 		print("Category {} populated with {} products!".format(category, prod_count))
 		i += 1
-
 
 def extract_codes_from_api(cat_obj):
 	codes = []
@@ -39,8 +38,6 @@ def extract_codes_from_api(cat_obj):
 
 	prod_count = populate_products(cat_obj, codes)
 	return prod_count
-
-
 
 def populate_products(cat_obj, codes):
 
@@ -66,8 +63,3 @@ def populate_products(cat_obj, codes):
 
 	return i
 
-
-def main():
-	populate_categories()
-
-main()
