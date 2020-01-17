@@ -9,5 +9,5 @@ class Command(BaseCommand):
 
 	# The command launch coverage analysis, and make a report in the shell
 	def handle(self, *args, **options):
-		os.system("coverage run --source='.' manage.py test")	
+		os.system("coverage run --omit */env/* manage.py test")	
 		os.system("coverage report")
