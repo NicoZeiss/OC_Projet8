@@ -69,8 +69,9 @@ def substitute(request):
     # Iterating to have 9 results
     while len(sub_dic) <= 8:
         food = full_list[i]
+        user = request.user
         # Checking if items is already added as favourite for authenticated user
-        if len(food.user.all()) != 0:
+        if len(food.user.filter(username=user.username)) != 0:
             sub_dic[food] = True
         else:
             sub_dic[food] = False
