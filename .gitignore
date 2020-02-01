@@ -1,8 +1,9 @@
 env/
-__pycache__/
-comparator/__pycache__/
-comparator/migrations/__pycache__/
-comparator/management/commands/__pycache__/
+PurBeurre/settings/production.py
+__pycache__
+comparator/__pycache__
+comparator/migrations/__pycache__
+comparator/management/commands/__pycache__
 user/__pycache__/
-user/migrations/__pycache__/
+user/migrations/__pycache__
 
