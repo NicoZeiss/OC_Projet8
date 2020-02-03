@@ -7,7 +7,7 @@ before_script:
 
 branches:
     only:
-        - dev
+        - staging
 
 env: DJANGO_SETTINGS_MODULE="PurBeurre.settings.travis"
 
