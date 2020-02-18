@@ -188,6 +188,7 @@ class SaveSubViewTestCase(TestCase):
         })
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, "/comparator/substitute/?user_substitute=7")
+        self.assertIn(self.substitute, self.user.food.all())
 
     def test_sub_not_auth_redirect_connexion(self):
         """If user is not authenticated, he's redirected to connexion page"""
