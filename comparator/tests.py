@@ -249,3 +249,36 @@ class FavouritesViewTestCase(TestCase):
         response = self.client.get(reverse('comparator:favourites'))
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, "/user/connexion/")
+
+class DeleteSubViewTestCase(TestCase):
+    """Testing delete_sub view"""
+    def setUp(self):
+        self.username = "MyUsername"
+        self.password = "MyPassword"
+        self.email = "MyMail@mail.com"
+        self.user = User.objects.create_user(username=self.username, email=self.email)
+        self.user.set_password(self.password)
+        self.user.save()
+
+        category = Category.objects.create(name="MyCat")
+        cat_id = category.id
+        self.food = Food.objects.create(code="7", name="MyFood", category_id=cat_id)
+        self.substitute = Food.objects.create(code="8", name="MySubstitute", category_id=cat_id)
+
+    def test_substitute_is_deleted(self):
+        """We test that sub is deleted from favourites template"""
+        self.user = authenticate(username=self.username, password=self.password)
+        self.login = self.client.login(username=self.username, password=self.password)
+        response = self.client.get(reverse('comparator:delete_sub'), {
+            'sub_code': self.substitute.code
+        })
+        self.assertNotIn(self.substitute, self.user.food.all())
+
+
+    def test_not_auth_redirect_connexion(self):
+        """If user is not authenticated, he's redirected to connexion page"""
+        response = self.client.get(reverse('comparator:delete_sub'), {
+            'sub_code': self.substitute.code
+        })
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, "/user/connexion/")
