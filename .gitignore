@@ -6,4 +6,5 @@ comparator/migrations/__pycache__
 comparator/management/commands/__pycache__
 user/__pycache__/
 user/migrations/__pycache__
+.coverage
 
