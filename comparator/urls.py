@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^save_sub/$', views.save_sub, name="save_sub"),
     url(r'^favourites/$', views.favourites, name="favourites"),
     url(r'^terms/$', views.terms, name="terms"),
+    url(r'^delete_sub/$', views.delete_sub, name="delete_sub"),
 ]
