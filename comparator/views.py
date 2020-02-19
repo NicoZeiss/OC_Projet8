@@ -98,6 +98,9 @@ def save_sub(request):
     else:
         return HttpResponseRedirect(reverse('user:connexion'))
 
+def delete_sub(request):
+    """Deleting substitute from favourites"""
+    pass
 
 
 def favourites(request):
