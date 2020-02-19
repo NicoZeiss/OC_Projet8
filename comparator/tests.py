@@ -265,12 +265,22 @@ class DeleteSubViewTestCase(TestCase):
         self.food = Food.objects.create(code="7", name="MyFood", category_id=cat_id)
         self.substitute = Food.objects.create(code="8", name="MySubstitute", category_id=cat_id)
 
-    def test_substitute_is_deleted(self):
+    def test_substitute_is_deleted_from_fav_temp(self):
         """We test that sub is deleted from favourites template"""
         self.user = authenticate(username=self.username, password=self.password)
         self.login = self.client.login(username=self.username, password=self.password)
         response = self.client.get(reverse('comparator:delete_sub'), {
             'sub_code': self.substitute.code
+        })
+        self.assertNotIn(self.substitute, self.user.food.all())
+
+    def test_substitute_is_deleted_from_sub_temp(self):
+        """We test that sub is deleted from substitute template"""
+        self.user = authenticate(username=self.username, password=self.password)
+        self.login = self.client.login(username=self.username, password=self.password)
+        response = self.client.get(reverse('comparator:delete_sub'), {
+            'del_sub': self.substitute.code,
+            'query_code': self.food.code
         })
         self.assertNotIn(self.substitute, self.user.food.all())
 
