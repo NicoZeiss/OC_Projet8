@@ -177,7 +177,10 @@ class SaveSubViewTestCase(TestCase):
         self.substitute = Food.objects.create(code="8", name="MySubstitute", category_id=cat_id)
 
     def test_save_substitute(self):
-        """If substitute is saved, user is redirected to sub result from his query"""
+        """
+        If substitute is saved, user is redirected to sub result from his query
+        We check that food is saved as favourite in DB
+        """
         self.user = authenticate(username=self.username, password=self.password)
         self.login = self.client.login(username=self.username, password=self.password)
         food_code = self.food.code
