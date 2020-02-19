@@ -25,7 +25,11 @@
 			  	  <button class="subs-button2 btn btn-primary btn-xl cap-text" onclick="window.location.href = '{% url 'comparator:detail' bar_code=key.code %}';">{{ key.name }}</button>
 			  	  {% if request.user.is_authenticated %}
 			  	  	{% if value == True %}
-			  	  		<button class="subs-button btn btn-primary btn-xl cap-text saved_fav">Déja en favoris</button>
+				  	  	<form method="get" action="{% url 'comparator:delete_sub' %}">
+				  	  		<input type="text" name="query_code" class="hidden-field" value="{{ query.code }}">
+				  	  		<input type="text" name="del_sub" class="hidden-field" value="{{ key.code }}">
+				  	  		<button class="subs-button btn btn-primary btn-xl cap-text saved_fav">Déja en favoris</button>
+				  	  	</form>
 			  	  	{% else %}
 				  	  	<form method="get" action="{% url 'comparator:save_sub' %}">
 					  	  	<input type="text" name="query_code" class="hidden-field" value="{{ query.code }}">

@@ -100,7 +100,26 @@ def save_sub(request):
 
 def delete_sub(request):
     """Deleting substitute from favourites"""
-    pass
+    if request.user.is_authenticated:
+        if 'sub_code' in request.GET:
+            # Deleting favourite sub form favourites template
+            sub_code = request.GET.get('sub_code')
+            sub = Food.objects.get(code=sub_code)
+            request.user.food.remove(sub)
+
+            return HttpResponseRedirect(reverse('comparator:favourites'))
+
+        else:
+            # Deleting favourite sub from substitute template
+            query_code = request.GET.get('query_code')
+            sub_code = request.GET.get('del_sub')
+            sub = Food.objects.get(code=sub_code)
+            request.user.food.remove(sub)
+
+            return HttpResponseRedirect('/comparator/substitute/?user_substitute={}'.format(query_code))
+
+    else:
+        return HttpResponseRedirect(reverse('user:connexion'))
 
 
 def favourites(request):
