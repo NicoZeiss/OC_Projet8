@@ -91,7 +91,7 @@ def save_sub(request):
         query_code = request.GET.get('query_code')
         sub_code = request.GET.get('sub_code')
         sub = Food.objects.get(code=sub_code)
-        request.user.food.add(sub)
+        request.user.food.delete(favourite)
 
         return HttpResponseRedirect('/comparator/substitute/?user_substitute={}'.format(query_code))
 
