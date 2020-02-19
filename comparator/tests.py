@@ -177,29 +177,32 @@ class SaveSubViewTestCase(TestCase):
         self.substitute = Food.objects.create(code="8", name="MySubstitute", category_id=cat_id)
 
     def test_save_substitute(self):
-        """
-        If substitute is saved, user is redirected to sub result from his query
-        We check that food is saved as favourite in DB
-        """
+        """If substitute is saved, user is redirected to sub result from his query"""
         self.user = authenticate(username=self.username, password=self.password)
         self.login = self.client.login(username=self.username, password=self.password)
-        food_code = self.food.code
-        sub_code = self.substitute.code
         response = self.client.get(reverse('comparator:save_sub'), {
-            'query_code': food_code,
-            'sub_code': sub_code
+            'query_code': self.food.code,
+            'sub_code': self.substitute.code
         })
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, "/comparator/substitute/?user_substitute=7")
+
+    def test_substitute_added_to_db(self):
+        """We check that food is saved as favourite in DB"""
+        self.user = authenticate(username=self.username, password=self.password)
+        self.login = self.client.login(username=self.username, password=self.password)
+        response = self.client.get(reverse('comparator:save_sub'), {
+            'query_code': self.food.code,
+            'sub_code': self.substitute.code
+        })
         self.assertIn(self.substitute, self.user.food.all())
+
 
     def test_sub_not_auth_redirect_connexion(self):
         """If user is not authenticated, he's redirected to connexion page"""
-        food_code = self.food.code
-        sub_code = self.substitute.code
         response = self.client.get(reverse('comparator:save_sub'), {
-            'query_code': food_code,
-            'sub_code': sub_code
+            'query_code': self.food.code,
+            'sub_code': self.substitute.code
         })
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, "/user/connexion/")
