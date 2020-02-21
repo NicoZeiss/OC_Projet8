@@ -174,3 +174,25 @@ class AccountTestCase(TestCase):
         response = self.client.get(reverse('user:account'))
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, "/user/connexion/")
+
+class ModifyEmailTestCase(TestCase):
+    """Testing modify email feature"""
+
+    def setUp(self):
+        self.username = "MyUsername"
+        self.password = "MyPassword"
+        self.email = "MyMail@mail.com"
+        self.user = User.objects.create_user(username=self.username, email=self.email)
+        self.user.set_password(self.password)
+        self.user.save()
+
+    def test_email_is_modified(self):
+        self.user = authenticate(username=self.username, password=self.password)
+        self.login = self.client.login(username=self.username, password=self.password)
+        new_email = "test@test.com"
+        response = self.client.post('/user/account/', {
+            'email': new_email
+        })
+        test_user = User.objects.get(username=self.username)
+        self.assertEqual(test_user.email, new_email)
+        self.assertIn("Votre adresse email : {}".format(new_email), str(response.content))

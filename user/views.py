@@ -70,7 +70,6 @@ def account(request):
             form = ModifyEmailForm(request.POST)
             if form.is_valid():
                 new_email = form.cleaned_data['email']
-                print(new_email)
                 request.user.email = new_email
                 request.user.save()
             return render(request, 'comparator/account.html', {
