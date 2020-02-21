@@ -65,17 +65,18 @@ def substitute(request):
     # Ordering items by nutriscore, in order to find best ones
     full_list = Food.objects.filter(category_id=choice_cat).order_by('nutriscore')
     sub_dic = {}
-    i = 0
     # Iterating to have 9 results
-    while len(sub_dic) <= 8:
-        food = full_list[i]
-        user = request.user
-        # Checking if items is already added as favourite for authenticated user
-        if len(food.user.filter(username=user.username)) != 0:
-            sub_dic[food] = True
+    for item in full_list:
+        if len(sub_dic) <= 8:
+            user = request.user
+            # Checking if items is already added as favourite for authenticated user
+            if len(item.user.filter(username=user.username)) != 0:
+                sub_dic[item] = True
+            else:
+                sub_dic[item] = False
+
         else:
-            sub_dic[food] = False
-        i += 1
+            break
 
     context = {
         "subdic": sub_dic,

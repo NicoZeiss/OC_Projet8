@@ -27,7 +27,7 @@
 			  	  <button class="subs-button2 btn btn-primary btn-xl cap-text" onclick="window.location.href = '{% url 'comparator:detail' bar_code=item.code %}';">{{ item.name }}</button>
 			  	  <form method="get" action="{% url 'comparator:delete_sub' %}">
 			  	  	<input type="text" name="sub_code" class="hidden-field" value="{{ item.code }}">
-				  	<button type="submit" class="subs-button btn btn-primary btn-xl cap-text">Supprimer des favoris</button>
+				  	<button type="submit" id="func-test" class="subs-button btn btn-primary btn-xl cap-text">Supprimer des favoris</button>
 				  </form>
 			    </div>
 			  </div>
