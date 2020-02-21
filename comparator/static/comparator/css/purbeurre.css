@@ -91,6 +91,10 @@ a {
   vertical-align: middle;
 }
 
+.space-bot {
+  margin-bottom: 5em;
+}
+
 .bg-contact {
   background-color: #ffffff;
 }

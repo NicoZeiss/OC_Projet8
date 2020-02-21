@@ -19,8 +19,16 @@
   <div class="container h-100">
     <div class="row justify-content-center">
       <div class="col-lg-8 text-center">
-        <h4 class="text-uppercase text-white font-weight-bold">Votre adresse email : <input class="mytest" type="text" value="{{ request.user.email }}" readonly="True"></h4>
+        <h4 class="text-uppercase text-white font-weight-bold">Votre adresse email : {{ request.user.email }}</h4>
       </div>
+    </div>
+    <div class='space-bot'></div>
+    <div class="row justify-content-center">
+      <form method="post">
+        {% csrf_token %}
+        {{ form }}
+      </form>
+      <button type="submit" class="search-button btn btn-primary btn-xl js-scroll-trigger">Modifier</button>
     </div>
   </div>
 </section>

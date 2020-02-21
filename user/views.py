@@ -4,7 +4,7 @@ from django.shortcuts import render, reverse
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
-from .forms import LoginForm, CreateUserForm
+from .forms import LoginForm, CreateUserForm, ModifyEmailForm
 
 
 def create_user(request):
@@ -66,6 +66,20 @@ def logout_user(request):
 def account(request):
     """This view display account page"""
     if request.user.is_authenticated:
-        return render(request, 'comparator/account.html')
+        if request.method == 'POST':
+            form = ModifyEmailForm(request.POST)
+            if form.is_valid():
+                new_email = form.cleaned_data['email']
+                print(new_email)
+                request.user.email = new_email
+                request.user.save()
+            return render(request, 'comparator/account.html', {
+                'form': form
+            })
+        else:
+            form = ModifyEmailForm()
+        return render(request, 'comparator/account.html', {
+            'form': form
+        })
     else:
         return HttpResponseRedirect(reverse('user:connexion'))
