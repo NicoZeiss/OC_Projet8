@@ -4,7 +4,6 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.urls import reverse
-import time
 
 
 class TestModifyEmailPage(StaticLiveServerTestCase):
