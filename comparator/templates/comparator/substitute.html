@@ -28,7 +28,7 @@
 				  	  	<form method="get" action="{% url 'comparator:delete_sub' %}">
 				  	  		<input type="text" name="query_code" class="hidden-field" value="{{ query.code }}">
 				  	  		<input type="text" name="del_sub" class="hidden-field" value="{{ key.code }}">
-				  	  		<button class="subs-button btn btn-primary btn-xl cap-text saved_fav">Déja en favoris</button>
+				  	  		<button id="func-test" class="subs-button btn btn-primary btn-xl cap-text saved_fav">Déja en favoris</button>
 				  	  	</form>
 			  	  	{% else %}
 				  	  	<form method="get" action="{% url 'comparator:save_sub' %}">

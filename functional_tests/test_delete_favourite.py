@@ -39,9 +39,13 @@ class TestDeleteFavouritePage(StaticLiveServerTestCase):
         self.browser.get(favourites_url)
         submit = self.browser.find_element_by_id("func-test")
         submit.send_keys(Keys.RETURN)
+        self.assertNotIn(self.food, self.user.food.all())
         self.assertNotIn("MyFood", self.browser.page_source)
 
     def test_favourite_is_deleted_from_sub_temp(self):
-        substitute_url = self.live_server_url + reverse('comparator:substitute')
+        substitute_url = '{}?{}={}'.format(self.live_server_url + reverse('comparator:substitute'), 'user_substitute', self.food.code)
         self.browser.get(substitute_url)
-        time.sleep(3)
+        submit = self.browser.find_element_by_id("func-test")
+        submit.send_keys(Keys.RETURN)
+        self.assertNotIn(self.food, self.user.food.all())
+        self.assertIn("Ajouter aux favoris", self.browser.page_source)
